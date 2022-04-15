@@ -1,6 +1,6 @@
 {
-  "WorkflowUrl": "/path_to/croo.wdl",
-  "WorkflowInputsUrl": "/path_to/croo_inputs.json",
+  "WorkflowUrl": "/path_to/croro.wdl",
+  "WorkflowInputsUrl": "/path_to/croro.inputs.json",
   "WorkflowOptionsUrl": null,
   "WorkflowDependenciesUrl": null
 }
