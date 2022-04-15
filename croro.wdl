@@ -32,8 +32,7 @@ task croro_task {
       echo "Reorganizing data, before transfer"
 
       # copy input data locally using azcopy
-      inputPath="https://vsmcf2817752f18c0.blob.core.windows.net/cromwell-executions/GenomeAssembly/4aa78d2e-318c-4f52-b61f-142c6b69392b?sp=racwl&st=2022-04-15T16:16:35Z&se=2022-04-16T00:16:35Z&spr=https&sv=2020-08-04&sr=c&sig=HsyLWKr6bLt%2BCm0cSgo9beCYKZ2QS7ONH7vGdmDlmIg%3D"
-      inputPath=("${inputPath/.blob.core.windows.net/}")
+      inputPath=~{inputDir}
       inputPath=("${inputPath/https:\/\//}")
       inputPath=("${inputPath/http:\/\//}")
       acct_and_cont=$(expr "$inputPath" : '^[-/]*\([^?]*\)')    # remove leading "-" and "/", and the SAS token
