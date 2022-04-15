@@ -1,14 +1,31 @@
-# Project
+# Cromwell Output Reorganization
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+This repository is an example of WDl workflow for organizing outputs from [Cromwell](https://github.com/broadinstitute/cromwell/), specifically Cromwell On Azure.<br/>
 
-As the maintainer of this project, please make a few updates:
+Learn more about using Azure for your Cromwell WDL workflows on our GitHub repo! - [Cromwell on Azure](https://github.com/microsoft/CromwellOnAzure).<br/>
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+This example takes advantage of [Croo](https://github.com/ENCODE-DCC/croo), a python package to reorganize outputs.
+
+Here, you can find the WDL files and an example inputs JSON files.
+
+The `paired-fastq-to-vcf.trigger.json` trigger files are ready to use. You can start the workflow on your instance of Cromwell on Azure, using [these instructions](https://github.com/microsoft/CromwellOnAzure/blob/master/docs/managing-your-workflow.md/#Start-your-workflow).
+
+
+
+## croro:
+This WDL is the Cromwell Output Reorganization (croro) workflow.
+This example shows the minimum options that must be specified to perform an reorganization and move of data other Storage accounts and Containers.
+
+
+#### Requirements/expectations
+-  Metdata Json, Path for a metadata.json for a workflow
+- [Output definition JSON](https://github.com/ENCODE-DCC/croo/blob/master/docs/OUT_DEF_JSON.md) file for a WDL file corresponding to the specified metadata.json file (not required)
+- Input Directory, URL for Azure Blob Storage with shared access signature token
+- Output Directory,  URL for Azure Blob Storage with shared access signature token
+- Docker image to run with AzCopy and Croo
+
+#### Outputs
+- None
 
 ## Contributing
 
@@ -26,8 +43,8 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 ## Trademarks
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft
+trademarks or logos is subject to and must follow
 [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.
