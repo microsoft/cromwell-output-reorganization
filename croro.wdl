@@ -6,7 +6,7 @@ task croro_task {
   input {
 
   File metadataJsonFile
-  File outDefJsonFile
+  File? outDefJsonFile
   String inputDir
   String dockerImage
   String outDir
@@ -32,25 +32,33 @@ task croro_task {
   inputPath=("${inputPath/http:\/\//}")
   acct_and_cont=$(expr "$inputPath" : '^[-/]*\([^?]*\)')    # remove leading "-" and "/", and the SAS token
   acct_and_cont=${acct_and_cont/%\//}    # remove trailing "/"
-  container_name=$(echo "$acct_and_cont" | cut -d / -f 2)
+  container_name=$(echo "$acct_and_cont" | cut -d / -f2-)
+  mkdir -p /$container_name
   cd /$container_name
 
-  azcopy copy "~{inputDir}" . --recursive
+  # just run azcopy if outDefJsonFile not provided
 
-  # Make temp directory
-  mkdir -p temp
+  if [ -z "~{outDefJsonFile}" ]; then
+    azcopy copy "~{inputDir}" "~{outDir}" --recursive
+  else
+    azcopy copy "~{inputDir}" . --recursive
 
-  cd temp
+    # Make temp directory
+    mkdir -p temp
 
-  # run Croo to copy all the data
-  croo --out-def-json ~{outDefJsonFile} --method copy \
-   --out-dir $PWD ~{metadataJsonFile}
+    cd temp
 
-  # Remove croo tsv and html before upload
-  rm croo*
+    # run Croo to copy all the data
+    croo --out-def-json ~{outDefJsonFile} --method copy \
+     --out-dir $PWD ~{metadataJsonFile}
 
-  # upload all data
-  azcopy copy "$PWD/*" "~{outDir}" --recursive
+    # Remove croo tsv and html before upload
+    rm croo*
+
+    # upload all data
+    azcopy copy "$PWD/*" "~{outDir}" --recursive
+  fi
+
 
   >>>
 
@@ -62,7 +70,7 @@ workflow croro_transform_data {
 
   input {
     File metadataJsonFile
-    File outDefJsonFile
+    File? outDefJsonFile
     String inputDir
     String dockerImage
     String outDir

@@ -19,7 +19,7 @@ This example shows the minimum options that must be specified to perform an reor
 
 #### Requirements/expectations
 -  Metdata Json, Path for a metadata.json for a workflow
-- [Output definition JSON](https://github.com/ENCODE-DCC/croo/blob/master/docs/OUT_DEF_JSON.md) file for a WDL file corresponding to the specified metadata.json file 
+- [Output definition JSON](https://github.com/ENCODE-DCC/croo/blob/master/docs/OUT_DEF_JSON.md) file for a WDL file corresponding to the specified metadata.json file [Optional]
 - Input Directory, URL for Azure Blob Storage with shared access signature token
 - Output Directory,  URL for Azure Blob Storage with shared access signature token
 - Docker image to run with AzCopy and Croo
