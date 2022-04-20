@@ -1,6 +1,6 @@
 # Cromwell Output Reorganization
 
-This repository is an example of WDl workflow for organizing outputs from [Cromwell](https://github.com/broadinstitute/cromwell/), specifically Cromwell On Azure.<br/>
+This repository is an example of WDL workflow for organizing outputs from [Cromwell](https://github.com/broadinstitute/cromwell/), specifically Cromwell On Azure.<br/>
 
 Learn more about using Azure for your Cromwell WDL workflows on our GitHub repo! - [Cromwell on Azure](https://github.com/microsoft/CromwellOnAzure).<br/>
 
@@ -8,7 +8,7 @@ This example takes advantage of [Croo](https://github.com/ENCODE-DCC/croo), a py
 
 Here, you can find the WDL files and an example inputs JSON files.
 
-The `paired-fastq-to-vcf.trigger.json` trigger files are ready to use. You can start the workflow on your instance of Cromwell on Azure, using [these instructions](https://github.com/microsoft/CromwellOnAzure/blob/master/docs/managing-your-workflow.md/#Start-your-workflow).
+The `croro.trigger.json` trigger files is a template trigger. You can start the workflow on your instance of Cromwell on Azure, using [these instructions](https://github.com/microsoft/CromwellOnAzure/blob/master/docs/managing-your-workflow.md/#Start-your-workflow).
 
 
 
