@@ -52,8 +52,8 @@ task croro_task {
     croo --out-def-json ~{outDefJsonFile} --method copy \
      --out-dir $PWD ~{metadataJsonFile}
 
-    # Remove croo tsv and html before upload
-    rm croo*
+    # Remove croro tsv and html before upload
+    rm croro*
 
     # upload all data
     azcopy copy "$PWD/*" "~{outDir}" --recursive
