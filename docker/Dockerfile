@@ -1,7 +1,8 @@
-FROM ubuntu:20.04
+FROM mcr.microsoft.com/mirror/docker/library/ubuntu:20.04
 LABEL author="Venkat S. Malladi"
 
 ENV DEBIAN_FRONTEND=noninteractive
+
 
 RUN apt-get update -y --fix-missing && \
   apt-get upgrade -y && \
@@ -9,6 +10,7 @@ RUN apt-get update -y --fix-missing && \
   apt-get autoremove -y && \
   apt-get update -y --fix-missing && \
   apt-get upgrade -y
+
 
 RUN apt-get install -y wget
 RUN  wget -O azcopy_v10.tar.gz https://aka.ms/downloadazcopy-v10-linux && tar -xf azcopy_v10.tar.gz --strip-components=1
