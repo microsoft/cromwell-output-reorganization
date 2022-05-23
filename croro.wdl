@@ -33,8 +33,10 @@ task croro_task {
   acct_and_cont=$(expr "$inputPath" : '^[-/]*\([^?]*\)')    # remove leading "-" and "/", and the SAS token
   acct_and_cont=${acct_and_cont/%\//}    # remove trailing "/"
   container_name=$(echo "$acct_and_cont" | cut -d / -f2-)
-  mkdir -p /$container_name
-  cd /$container_name
+  dir_name=$(dirname  $container_name)
+
+  mkdir -p /$dir_name
+  cd /$dir_name
 
   # just run azcopy if outDefJsonFile not provided
 
