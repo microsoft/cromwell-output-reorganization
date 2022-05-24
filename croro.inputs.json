@@ -1,6 +1,6 @@
 {
   "croro_transform_data.metadataJsonFile": "<path_to>/.metadata.json",
-  "croro_transform_data.outDefJsonFile":  "<path_to>/.metadata.json",
+  "croro_transform_data.outDefJsonFile":  "<path_to>/.outDef.json",
   "croro_transform_data.inputDir": "http://path_to_input_blob",
   "croro_transform_data.outDir": "http://path_to_output_blob",
   "croro_transform_data.dockerImage": "<path_to_image>/<dockerImage>",
