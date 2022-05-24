@@ -10,6 +10,7 @@ task croro_task {
   String inputDir
   String dockerImage
   String outDir
+
   }
 
   String memory="2 GB"
@@ -19,7 +20,6 @@ task croro_task {
     docker: dockerImage
     memory: memory
     cpu: threads
-    preemptible: true
   }
 
  command <<<
@@ -27,13 +27,21 @@ task croro_task {
   echo "Reorganizing data, before transfer"
 
   # copy input data locally using azcopy
-  inputPath=~{inputDir}
+  inputPath="~{inputDir}"
+  inputPath=("${inputPath/.blob.core.windows.net/}")
   inputPath=("${inputPath/https:\/\//}")
   inputPath=("${inputPath/http:\/\//}")
   acct_and_cont=$(expr "$inputPath" : '^[-/]*\([^?]*\)')    # remove leading "-" and "/", and the SAS token
   acct_and_cont=${acct_and_cont/%\//}    # remove trailing "/"
   container_name=$(echo "$acct_and_cont" | cut -d / -f2-)
-  dir_name=$(dirname  $container_name)
+
+  IFS='/' read -r -a path_array <<< "$container_name"
+
+  if [ "${#path_array[@]}" -gt 1 ]; then
+    dir_name=$(dirname  "$container_name")
+  else
+    dir_name="$container_name"
+  fi
 
   mkdir -p /$dir_name
   cd /$dir_name
@@ -54,13 +62,12 @@ task croro_task {
     croo --out-def-json ~{outDefJsonFile} --method copy \
      --out-dir $PWD ~{metadataJsonFile}
 
-    # Remove croro tsv and html before upload
-    rm croro*
+    # Remove croo tsv and html before upload
+    rm croo*
 
     # upload all data
     azcopy copy "$PWD/*" "~{outDir}" --recursive
   fi
-
 
   >>>
 
@@ -71,6 +78,7 @@ task croro_task {
 workflow croro_transform_data {
 
   input {
+
     File metadataJsonFile
     File? outDefJsonFile
     String inputDir
@@ -80,14 +88,13 @@ workflow croro_transform_data {
   }
 
   call croro_task {
-        input:
-            metadataJsonFile = metadataJsonFile,
-            outDefJsonFile = outDefJsonFile,
-            inputDir = inputDir,
-            outDir = outDir,
-            dockerImage = dockerImage
+      input:
+          metadataJsonFile = metadataJsonFile,
+          outDefJsonFile = outDefJsonFile,
+          inputDir = inputDir,
+          outDir = outDir,
+          dockerImage = dockerImage
   }
-
 
    output {
   }
